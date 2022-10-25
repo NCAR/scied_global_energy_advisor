@@ -97,13 +97,12 @@
   </div>
   <div class="row">
     <div class="col-6">
-      <google-chart #chart_energy [title]="title_sources" [type]="type" [data]="data_energy" [columns]="columns_energy" [options]="options_sources" [width]="width" [height]="height">
-      </google-chart>
+      <div id="divSourcesChart"></div>
+
       <p>Total Energy Produced: {{ total_energy | number }} PW h<br/> You are producing {{ (total_energy / max_energy)*100 | number }}% of the energy needed.</p>
     </div>
     <div class="col-6">
-      <google-chart #chart_emissions [title]="title_emissions" [type]="type" [data]="data_emissions" [columns]="columns_emissions" [options]="options_emissions" [width]="width" [height]="height">
-      </google-chart>
+
       <p>Total Emissions Generated: {{ total_emissions | number }} kg CO<sub>2</sub> emissions per MWh</p>
     </div>
   </div>
