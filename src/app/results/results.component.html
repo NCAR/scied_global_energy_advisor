@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <div class="col-1">
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('petroleum')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'petroleum')">
+      </mat-slider>
+      <br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['petroleum']" [value]="sharedData.retrieveCustomValue('petroleum')" (change)="onInputChange($event,'petroleum')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('coal')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'coal')">
+      </mat-slider>
+      <br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['coal']" [value]="sharedData.retrieveCustomValue('coal')" (change)="onInputChange($event,'coal')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('natural_gas')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'natural_gas')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['natural_gas']" [value]="sharedData.retrieveCustomValue('natural_gas')" (change)="onInputChange($event,'natural_gas')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('nuclear')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'nuclear')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['nuclear']" [value]="sharedData.retrieveCustomValue('nuclear')" (change)="onInputChange($event,'nuclear')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('hydro')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'hydro')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['hydro']" [value]="sharedData.retrieveCustomValue('hydro')" (change)="onInputChange($event,'hydro')">
+      </mat-form-field>
+    </div>
+    <div class="col-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('biofuels')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'biofuels')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['biofuels']" [value]="sharedData.retrieveCustomValue('biofuels')" (change)="onInputChange($event,'biofuels')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('wind')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'wind')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['wind']" [value]="sharedData.retrieveCustomValue('wind')" (change)="onInputChange($event,'wind')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('solar')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'solar')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['solar']" [value]="sharedData.retrieveCustomValue('solar')" (change)="onInputChange($event,'solar')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('geothermal')" [vertical]="vertical"
+        (change)="onSliderInputChange($event,'geothermal')">
+      </mat-slider><br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="model_data['geothermal']" [value]="sharedData.retrieveCustomValue('geothermal')" (change)="onInputChange($event,'geothermal')">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <google-chart #chart [title]="title" [type]="type" [data]="data" [columns]="myColumnNames" [options]="options" [width]="width" [height]="height">
+  </google-chart>
+</div>

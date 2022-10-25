@@ -1,0 +1,90 @@
+import { Component, OnInit } from '@angular/core';
+import { ChartType, Row } from "angular-google-charts";
+import { SharedDataService } from '../google-chart/service/shared-data.service';
+
+@Component({
+  selector: 'app-interactive',
+  templateUrl: './interactive.component.html',
+  styleUrls: ['./interactive.component.scss']
+})
+export class InteractiveComponent implements OnInit {
+  title = 'Energy Source Mix (in petawatt-hours)';
+  autoTicks = false;
+  disabled = false;
+  invert = false;
+  max = 100;
+  min = 0;
+  showTicks = false;
+  step = 1;
+  thumbLabel = true;
+  vertical = true;
+  tickInterval = 1;
+
+
+
+
+  constructor(public sharedData : SharedDataService) {
+    console.log(sharedData.getSourcesList());
+
+   }
+
+  ngOnInit(): void {
+  }
+  onInputChange(event) {
+    this.sharedData.updateCustomValue('petroleum',120);
+  }
+  sliderEvent() {
+    this.sharedData.updateCustomValue('petroleum',120);
+}
+
+}
+
+
+
+
+<div class="container">
+  <div class="header">
+    <h2>
+      {{title}}
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-12">
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('petroleum')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+
+        <!--//
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('coal')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('natural_gas')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('nuclear')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('hydro')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('biofuels')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('wind')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('solar')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>
+        <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('geothermal')" [vertical]="vertical" aria-labelledby="example-name-label"
+          (change)="onInputChange($event)">
+        </mat-slider>//-->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <app-stacked-chart></app-stacked-chart>
+    </div>
+  </div>
+</div>
