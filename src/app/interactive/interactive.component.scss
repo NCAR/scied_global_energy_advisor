@@ -2,6 +2,37 @@
 .mat-slider-vertical {
   height: 150px;
 }
+.reduce-width {
+  width: 85px;
+}
+.container {
+  display: flex;
+  max-width: 1080px;
+  min-width: 450px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container .row {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content : space-around;
+  align-content: space-around;
+}
+.energyOver {
+  color:green;
+}
+.energyUnder {
+  color:red;
+}
+.emissionsUnder {
+  color:green;
+}
+.emissionsOver {
+  color:red;
+}
  :host ::ng-deep {
   .mat-slider-thumb-label {
     transform: rotate(-45deg) !important;

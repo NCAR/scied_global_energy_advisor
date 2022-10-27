@@ -1,0 +1,40 @@
+{
+  'petroleum':
+  {
+    'energy': 50,
+    'emissions': 250
+  },
+  'coal': {
+  {
+    'energy': 40,
+    'emissions': 350
+  },
+  'natural_gas':{
+    'energy': 30,
+    'emissions': 180
+  },
+  'nuclear':{
+    'energy': 10,
+    'emissions': 0
+  },
+  'hydro':{
+    'energy': 10,
+    'emissions': 0
+  },
+  'biofuels':{
+    'energy': 10,
+    'emissions': 200
+  },
+  'wind':{
+    'energy': 10,
+    'emissions': 0
+  },
+  'solar':{
+    'energy': 10,
+    'emissions': 0
+  },
+  'geothermal':{
+    'energy': 5,
+    'emissions': 30
+  }
+}
