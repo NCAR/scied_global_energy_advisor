@@ -1,40 +1,56 @@
-{
-  'petroleum':
+[
   {
-    'energy': 50,
-    'emissions': 250
+    "id":"petroleum",
+    "name": "Petroleum",
+    "energy": 50,
+    "emissions": 250
   },
-  'coal': {
   {
-    'energy': 40,
-    'emissions': 350
+    "id":"coal",
+    "name": "Coal",
+    "energy": 40,
+    "emissions": 350
   },
-  'natural_gas':{
-    'energy': 30,
-    'emissions': 180
+  {
+    "id":"natural_gas",
+    "name": "Natural Gas",
+    "energy": 30,
+    "emissions": 180
   },
-  'nuclear':{
-    'energy': 10,
-    'emissions': 0
+  {
+    "id":"nuclear",
+    "name": "Nuclear",
+    "energy": 10,
+    "emissions": 0
   },
-  'hydro':{
-    'energy': 10,
-    'emissions': 0
+  {
+    "id":"hydro",
+    "name": "Hydro",
+    "energy": 10,
+    "emissions": 0
   },
-  'biofuels':{
-    'energy': 10,
-    'emissions': 200
+  {
+    "id":"biofuels",
+    "name": "Biofuels",
+    "energy": 10,
+    "emissions": 200
   },
-  'wind':{
-    'energy': 10,
-    'emissions': 0
+  {
+    "id":"wind",
+    "name": "name",
+    "energy": 10,
+    "emissions": 0
   },
-  'solar':{
-    'energy': 10,
-    'emissions': 0
+  {
+    "id":"solar",
+    "name": "Solar",
+    "energy": 10,
+    "emissions": 0
   },
-  'geothermal':{
-    'energy': 5,
-    'emissions': 30
+  {
+    "id":"geothermal",
+    "name": "Geothermal",
+    "energy": 5,
+    "emissions": 30
   }
-}
+]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleChartService } from '../google-chart/service/google-chart.service';
-import { SharedDataService } from '../google-chart/service/shared-data.service';
+import { DataService } from '../google-chart/service/data.service';
+import { Source } from '../google-chart/service/source';
 
 @Component({
   selector: 'app-interactive',
@@ -12,8 +13,8 @@ export class InteractiveComponent implements OnInit {
   title_sources = 'Energy Source Mix (in petawatt-hours)';
   title_emissions = 'kg of Carbon Dioxide emissions per MWh';
 
-  private sources_list: any;
-  private emissions_list: any;
+  public sources_list: any;
+  public emissions_list: any;
 
   energyClass = 'energyOver';
   emissionsClass = 'emissionsOver';
@@ -92,77 +93,94 @@ export class InteractiveComponent implements OnInit {
   };
 
 
-  model_data: any = [];
 
-  constructor(private gChartService: GoogleChartService, public sharedData: SharedDataService) {
 
-    this.emissions_list = sharedData.getEmissionsList();
+  constructor(private gChartService: GoogleChartService, private data: DataService) {
 
-    // set up sources chart
-    this.sources_list = sharedData.getSourcesList();
+
+
+  }
+  ngOnInit(): void {
+    this.sources_list = this.data.default_source_structure;
+    this.emissions_list = {};
+    this.getSources();
+  }
+
+
+    getSources() {
+      let source;
+      this.data.getSource()
+        .subscribe(resp => {
+          for (const d of (resp.body as any)) {
+            this.sources_list[d.id] = {
+              name: d.name,
+              energy: d.energy
+            };
+            this.emissions_list[d.id]= {
+              name: d.name,
+              emissions: d.emissions
+            };
+          }
+          this.setupCharts();
+        });
+    }
+
+  /**
+  *
+  *
+  **/
+  setupCharts() {
+    // set up sources
     this.sources_columns = [
       '',
-      this.sources_list['custom']['petroleum'].name,
-      this.sources_list['custom']['coal'].name,
-      this.sources_list['custom']['natural_gas'].name,
-      this.sources_list['custom']['nuclear'].name,
-      this.sources_list['custom']['hydro'].name,
-      this.sources_list['custom']['biofuels'].name,
-      this.sources_list['custom']['wind'].name,
-      this.sources_list['custom']['solar'].name,
-      this.sources_list['custom']['geothermal'].name
+      this.sources_list['petroleum'].name,
+      this.sources_list['coal'].name,
+      this.sources_list['natural_gas'].name,
+      this.sources_list['nuclear'].name,
+      this.sources_list['hydro'].name,
+      this.sources_list['biofuels'].name,
+      this.sources_list['wind'].name,
+      this.sources_list['solar'].name,
+      this.sources_list['geothermal'].name
     ];
-
-    // for input model
-    this.model_data['petroleum'] = parseInt(this.sources_list['custom']['petroleum'].amount);
-    this.model_data['coal'] = parseInt(this.sources_list['custom']['coal'].amount);
-    this.model_data['natural_gas'] = parseInt(this.sources_list['custom']['petroleum'].amount);
-    this.model_data['nuclear'] = parseInt(this.sources_list['custom']['nuclear'].amount);
-    this.model_data['hydro'] = parseInt(this.sources_list['custom']['hydro'].amount);
-    this.model_data['biofuels'] = parseInt(this.sources_list['custom']['biofuels'].amount);
-    this.model_data['wind'] = parseInt(this.sources_list['custom']['wind'].amount);
-    this.model_data['solar'] = parseInt(this.sources_list['custom']['solar'].amount);
-    this.model_data['geothermal'] = parseInt(this.sources_list['custom']['geothermal'].amount);
 
     this.sources_data = [
       '',
-      this.model_data['petroleum'],
-      this.model_data['coal'],
-      this.model_data['natural_gas'],
-      this.model_data['nuclear'],
-      this.model_data['hydro'],
-      this.model_data['biofuels'],
-      this.model_data['wind'],
-      this.model_data['solar'],
-      this.model_data['geothermal']
+      this.sources_list['petroleum'].energy,
+      this.sources_list['coal'].energy,
+      this.sources_list['natural_gas'].energy,
+      this.sources_list['nuclear'].energy,
+      this.sources_list['hydro'].energy,
+      this.sources_list['biofuels'].energy,
+      this.sources_list['wind'].energy,
+      this.sources_list['solar'].energy,
+      this.sources_list['geothermal'].energy
     ];
-
-
 
     // set up emissions
     this.emissions_columns= [
       '',
-      this.sources_list['custom']['petroleum'].name,
-      this.sources_list['custom']['coal'].name,
-      this.sources_list['custom']['natural_gas'].name,
-      this.sources_list['custom']['nuclear'].name,
-      this.sources_list['custom']['hydro'].name,
-      this.sources_list['custom']['biofuels'].name,
-      this.sources_list['custom']['wind'].name,
-      this.sources_list['custom']['solar'].name,
-      this.sources_list['custom']['geothermal'].name
+      this.emissions_list['petroleum'].name,
+      this.emissions_list['coal'].name,
+      this.emissions_list['natural_gas'].name,
+      this.emissions_list['nuclear'].name,
+      this.emissions_list['hydro'].name,
+      this.emissions_list['biofuels'].name,
+      this.emissions_list['wind'].name,
+      this.emissions_list['solar'].name,
+      this.emissions_list['geothermal'].name
     ];
     this.emissions_data = [
       '',
-      parseInt(this.model_data['petroleum']) * parseInt(this.emissions_list['petroleum']),
-      parseInt(this.model_data['coal']) * parseInt(this.emissions_list['coal']),
-      parseInt(this.model_data['natural_gas']) * parseInt(this.emissions_list['natural_gas']),
-      parseInt(this.model_data['nuclear']) * parseInt(this.emissions_list['nuclear']),
-      parseInt(this.model_data['hydro']) * parseInt(this.emissions_list['hydro']),
-      parseInt(this.model_data['biofuels']) * parseInt(this.emissions_list['biofuels']),
-      parseInt(this.model_data['wind']) * parseInt(this.emissions_list['wind']),
-      parseInt(this.model_data['solar']) * parseInt(this.emissions_list['solar']),
-      parseInt(this.model_data['geothermal']) * parseInt(this.emissions_list['geothermal'])
+      parseInt(this.sources_list['petroleum'].energy) * parseInt(this.emissions_list['petroleum'].emissions),
+      parseInt(this.sources_list['coal'].energy) * parseInt(this.emissions_list['coal'].emissions),
+      parseInt(this.sources_list['natural_gas'].energy) * parseInt(this.emissions_list['natural_gas'].emissions),
+      parseInt(this.sources_list['nuclear'].energy) * parseInt(this.emissions_list['nuclear'].emissions),
+      parseInt(this.sources_list['hydro'].energy) * parseInt(this.emissions_list['hydro'].emissions),
+      parseInt(this.sources_list['biofuels'].energy) * parseInt(this.emissions_list['biofuels'].emissions),
+      parseInt(this.sources_list['wind'].energy) * parseInt(this.emissions_list['wind'].emissions),
+      parseInt(this.sources_list['solar'].energy) * parseInt(this.emissions_list['solar'].emissions),
+      parseInt(this.sources_list['geothermal'].energy) * parseInt(this.emissions_list['geothermal'].emissions)
     ];
 
     this.gLib = this.gChartService.getGoogle();
@@ -171,9 +189,6 @@ export class InteractiveComponent implements OnInit {
 
     this.calculateTotalEnergy();
     this.updateEmissionsData();
-
-  }
-  ngOnInit(): void {
   }
 
   /**
@@ -213,15 +228,15 @@ export class InteractiveComponent implements OnInit {
     //
     this.emissions_data = [
         '',
-        parseInt(this.model_data['petroleum']) * this.emissions_list['petroleum'],
-        parseInt(this.model_data['coal']) * this.emissions_list['coal'],
-        parseInt(this.model_data['natural_gas']) * this.emissions_list['natural_gas'],
-        parseInt(this.model_data['nuclear']) * this.emissions_list['nuclear'],
-        parseInt(this.model_data['hydro']) * this.emissions_list['hydro'],
-        parseInt(this.model_data['biofuels']) * this.emissions_list['biofuels'],
-        parseInt(this.model_data['wind']) * this.emissions_list['wind'],
-        parseInt(this.model_data['solar']) * this.emissions_list['solar'],
-        parseInt(this.model_data['geothermal']) * this.emissions_list['geothermal']
+        parseInt(this.sources_list['petroleum'].energy) * this.emissions_list['petroleum'].emissions,
+        parseInt(this.sources_list['coal'].energy) * this.emissions_list['coal'].emissions,
+        parseInt(this.sources_list['natural_gas'].energy) * this.emissions_list['natural_gas'].emissions,
+        parseInt(this.sources_list['nuclear'].energy) * this.emissions_list['nuclear'].emissions,
+        parseInt(this.sources_list['hydro'].energy) * this.emissions_list['hydro'].emissions,
+        parseInt(this.sources_list['biofuels'].energy) * this.emissions_list['biofuels'].emissions,
+        parseInt(this.sources_list['wind'].energy) * this.emissions_list['wind'].emissions,
+        parseInt(this.sources_list['solar'].energy) * this.emissions_list['solar'].emissions,
+        parseInt(this.sources_list['geothermal'].energy) * this.emissions_list['geothermal'].emissions
     ];
 
 
@@ -229,10 +244,77 @@ export class InteractiveComponent implements OnInit {
   }
 
   /**
+   *
+   *
+  **/
+  onSliderInputChange(event, source) {
+    this.sources_list[source].energy = event.value;
+    this.updateChart(source);
+  }
+  /**
+   *
+   *
+  **/
+  onInputChange(event, source) {
+    this.updateChart(source);
+  }
+
+  /**
   *
   *
   **/
-  getKey(source) {
+  calculateTotalEnergy(){
+    this.total_energy = parseInt(this.sources_list['petroleum'].energy + this.sources_list['coal'].energy + this.sources_list['natural_gas'].energy + this.sources_list['nuclear'].energy + this.sources_list['hydro'].energy + this.sources_list['biofuels'].energy + this.sources_list['wind'].energy + this.sources_list['solar'].energy + this.sources_list['geothermal'].energy);
+    this.pctEnergy = this.roundNumber(((this.total_energy/this.max_energy)*100),0);
+
+
+    if(this.total_energy >= this.max_energy) {
+      this.energyClass = 'energyOver';
+    } else {
+      this.energyClass = 'energyUnder';
+    }
+  }
+
+  /**
+  *
+  *
+  **/
+  calculateTotalEmissions(){
+    let temp_emissions = this.emissions_data[1] + this.emissions_data[2] + this.emissions_data[3] + this.emissions_data[4] + this.emissions_data[5] + this.emissions_data[6] + this.emissions_data[7] + this.emissions_data[8] + this.emissions_data[9];
+    this.total_emissions = temp_emissions  * .001;
+
+    // calc % of recommended emissions
+  	this.pctCO2emissions = this.roundNumber(((this.total_emissions/this.max_emissions)*100),0);
+
+    if(this.total_emissions >= this.max_emissions) {
+      this.emissionsClass = 'emissionsOver';
+    } else {
+      this.emissionsClass = 'emissionsUnder';
+    }
+  }
+
+  /**
+   *
+   *
+  **/
+  updateChart(source) {
+
+    this.sources_data[this.getKey(source)] = parseInt(this.sources_list[source].energy);
+    this.updateEmissionsData();
+
+    // redraw sources
+    this.sources_wrapper.setDataTable([this.sources_columns, this.sources_data]);
+    this.sources_wrapper.draw();
+
+    // redraw emissions
+    this.emissions_wrapper.setDataTable([this.emissions_columns, this.emissions_data]);
+    this.emissions_wrapper.draw();
+
+    this.calculateTotalEnergy();
+    this.updateEmissionsData();
+  }
+
+  getKey(source){
     switch(source) {
       case 'petroleum':
         return 1;
@@ -265,73 +347,15 @@ export class InteractiveComponent implements OnInit {
     }
     return 0;
   }
-  /**
-   *
-   *
-  **/
-  onSliderInputChange(event, source) {
-    this.model_data[source] = event.value;
-    this.updateChart(source);
-  }
-  /**
-   *
-   *
-  **/
-  onInputChange(event, source) {
-    this.updateChart(source);
-  }
 
   /**
   *
   *
   **/
-  calculateTotalEnergy(){
-    this.total_energy = parseInt(this.model_data['petroleum'] + this.model_data['coal'] + this.model_data['natural_gas'] + this.model_data['nuclear'] + this.model_data['hydro'] + this.model_data['biofuels'] + this.model_data['wind'] + this.model_data['solar'] + this.model_data['geothermal']);
-    this.pctEnergy = this.roundNumber(((this.total_energy/this.max_energy)*100),0);
-
-    if(this.total_energy >= this.max_energy) {
-      this.energyClass = 'energyOver';
-    } else {
-      this.energyClass = 'energyUnder';
-    }
+  public updateCustomValue(key, value) {
+    // update custom shared data
+    this.sources_list[key].energy = value;
   }
 
-  /**
-  *
-  *
-  **/
-  calculateTotalEmissions(){
-    let temp_emissions = this.emissions_data[1] + this.emissions_data[2] + this.emissions_data[3] + this.emissions_data[4] + this.emissions_data[5];
-    this.total_emissions = temp_emissions  * .001;
-
-    // calc % of recommended emissions
-  	this.pctCO2emissions = this.roundNumber(((this.total_emissions/this.max_emissions)*100),0);
-
-    if(this.total_emissions >= this.max_emissions) {
-      this.emissionsClass = 'emissionsOver';
-    } else {
-      this.emissionsClass = 'emissionsUnder';
-    }
-  }
-
-  /**
-   *
-   *
-  **/
-  updateChart(source) {
-    this.sources_data[this.getKey(source)] = parseInt(this.model_data[source]);
-    this.sharedData.updateCustomValue(source, parseInt(this.model_data[source]));
-
-    // redraw sources
-    this.sources_wrapper.setDataTable([this.sources_columns, this.sources_data]);
-    this.sources_wrapper.draw();
-
-    // redraw emissions
-    this.emissions_wrapper.setDataTable([this.emissions_columns, this.emissions_data]);
-    this.emissions_wrapper.draw();
-
-    this.calculateTotalEnergy();
-    this.updateEmissionsData();
-  }
 
 }

@@ -1,88 +1,88 @@
 <div class="container">
   <div class="row">
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('petroleum')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['petroleum'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'petroleum')">
       </mat-slider>
       <br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Petroleum</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['petroleum']" [value]="sharedData.retrieveCustomValue('petroleum')" (change)="onInputChange($event,'petroleum')">
+        <input matInput type="number" [(ngModel)]="sources_list['petroleum'].energy"(change)="onInputChange($event,'petroleum')">
       </mat-form-field>
     </div>
     <div class="col-2">
 
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('coal')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['coal'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'coal')">
       </mat-slider>
       <br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Coal</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['coal']" [value]="sharedData.retrieveCustomValue('coal')" (change)="onInputChange($event,'coal')">
+        <input matInput type="number" [(ngModel)]="sources_list['coal'].energy"(change)="onInputChange($event,'coal')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('natural_gas')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['natural_gas'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'natural_gas')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Natural Gas</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['natural_gas']" [value]="sharedData.retrieveCustomValue('natural_gas')" (change)="onInputChange($event,'natural_gas')">
+        <input matInput type="number" [(ngModel)]="sources_list['natural_gas'].energy" (change)="onInputChange($event,'natural_gas')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('nuclear')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['nuclear'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'nuclear')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Nuclear</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['nuclear']" [value]="sharedData.retrieveCustomValue('nuclear')" (change)="onInputChange($event,'nuclear')">
+        <input matInput type="number" [(ngModel)]="sources_list['nuclear'].energy" (change)="onInputChange($event,'nuclear')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('hydro')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['hydro'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'hydro')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Hydro</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['hydro']" [value]="sharedData.retrieveCustomValue('hydro')" (change)="onInputChange($event,'hydro')">
+        <input matInput type="number" [(ngModel)]="sources_list['hydro'].energy" (change)="onInputChange($event,'hydro')">
       </mat-form-field>
     </div>
 
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('biofuels')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['biofuels'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'biofuels')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Biofuels</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['biofuels']" [value]="sharedData.retrieveCustomValue('biofuels')" (change)="onInputChange($event,'biofuels')">
+        <input matInput type="number" [(ngModel)]="sources_list['biofuels'].energy" (change)="onInputChange($event,'biofuels')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('wind')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['wind'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'wind')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Wind</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['wind']" [value]="sharedData.retrieveCustomValue('wind')" (change)="onInputChange($event,'wind')">
+        <input matInput type="number" [(ngModel)]="sources_list['wind'].energy" (change)="onInputChange($event,'wind')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('solar')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['solar'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'solar')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Solar</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['solar']" [value]="sharedData.retrieveCustomValue('solar')" (change)="onInputChange($event,'solar')">
+        <input matInput type="number" [(ngModel)]="sources_list['solar'].energy" (change)="onInputChange($event,'solar')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [value]="sharedData.retrieveCustomValue('geothermal')" [vertical]="vertical"
+      <mat-slider class="example-margin" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['geothermal'].energy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'geothermal')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width">
         <mat-label>Geothermal</mat-label>
-        <input matInput type="number" [(ngModel)]="model_data['geothermal']" [value]="sharedData.retrieveCustomValue('geothermal')" (change)="onInputChange($event,'geothermal')">
+        <input matInput type="number" [(ngModel)]="sources_list['geothermal'].energy" (change)="onInputChange($event,'geothermal')">
       </mat-form-field>
     </div>
   </div>
