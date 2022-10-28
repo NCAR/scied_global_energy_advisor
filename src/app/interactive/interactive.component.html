@@ -91,13 +91,13 @@
   <div class="row">
     <div class="col-6">
       <div id="divSourcesChart"></div>
-      <p [class]="energyClass">Total Energy Produced: {{ total_energy | number }} PW h<br/> You are producing {{ pctEnergy }}% of the energy needed.</p>
-      <p *ngIf="energyClass == 'energyUnder'">You must produce more energy.</p>
+      <p [class]="energyClass">Total Energy Produced: {{ total_energy | number }} PWh<br/> You are producing {{ pctEnergy }}% of the energy needed.</p>
+      <p *ngIf="energyClass == 'energyUnder'"><strong>You must produce at least 175 PWh of energy to meet global demand.</strong></p>
     </div>
     <div class="col-6">
         <div id="divEmissionsChart"></div>
-      <p [class]="emissionsClass">Total Emissions Generated: {{ total_emissions | number }} kg CO<sub>2</sub> emissions per MWh<br/> You are producting {{pctCO2emissions}}% of the maximum allowable emissions.</p>
-      <p *ngIf="emissionsClass == 'emissionsOver'">You must reduce your emissions.</p>
+      <p [class]="emissionsClass">Total Emissions Generated: {{ total_emissions | number }} Gt CO<sub>2</sub> emissions<br/> You are producting {{pctCO2emissions}}% of the maximum allowable emissions.</p>
+      <p *ngIf="emissionsClass == 'emissionsOver'"><strong>You must reduce your emissions to 21 Gt CO<sub>2</sub> or less.</strong></p>
     </div>
   </div>
 </div>

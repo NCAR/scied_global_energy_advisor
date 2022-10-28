@@ -10,8 +10,8 @@ import { Source } from '../google-chart/service/source';
 })
 export class InteractiveComponent implements OnInit {
   private gLib: any;
-  title_sources = 'Energy Source Mix (in petawatt-hours)';
-  title_emissions = 'kg of Carbon Dioxide emissions per MWh';
+  title_sources = 'Energy Source Mix (in PWh)';
+  title_emissions = 'Gt of Carbon Dioxide emissions per MWh';
 
   public sources_list: any;
   public emissions_list: any;
@@ -35,9 +35,13 @@ export class InteractiveComponent implements OnInit {
   sources_columns;
   sources_wrapper;
   sources_data;
+  sources_datatable;
+  sources_formatter;
   emissions_columns;
-  emissions_data;
   emissions_wrapper;
+  emissions_data;
+  emissions_datatable;
+  emissions_formatter;
 
   total_energy = 0;
   pctEnergy = 0;
@@ -51,23 +55,17 @@ export class InteractiveComponent implements OnInit {
     height:400,
     width: 450,
     legend: { position: 'top', maxLines: 3 },
-    isStacked: true,
+    isStacked: 'percent',
     animation: {
       duration: 1000,
-      easing: 'out',
+      easing: 'inAndOut',
+      startup: true
     },
-    vAxes: {
-      0: {
-        textPosition: 'out',
-        title: 'Petawatt-hours (PW-h)',
-        textStyle: { color: '#000000' },
-        minorGridlines: { count: 12, color: '#cc0000' },
-        titleTextStyle: { color: '#21C40A' },
-      },
-    },
+    enableInteractivity: true,
     vAxis: {
-      minValue: 0,
-      ticks: [0, 50, 100, 150, 175, 200]
+      textPosition: 'out',
+      title: 'PWh',
+      format: 'percent'
     },
     chartArea: {
       left: 70,
@@ -82,7 +80,13 @@ export class InteractiveComponent implements OnInit {
     legend: { position: 'top', maxLines: 3 },
     animation: {
       duration: 1000,
-      easing: 'out',
+      easing: 'inAndOut',
+      startup: true
+    },
+    vAxis: {
+      textPosition: 'out',
+      title: 'Emissions',
+      format: 'decimal'
     },
     isStacked: true,
     chartArea: {
@@ -93,16 +97,15 @@ export class InteractiveComponent implements OnInit {
   };
 
 
-
-
   constructor(private gChartService: GoogleChartService, private data: DataService) {
+    this.gLib = this.gChartService.getGoogle();
+    this.gLib.charts.load('current', {packages:['controls', 'corechart']});
 
-
-
-  }
-  ngOnInit(): void {
     this.sources_list = this.data.default_source_structure;
     this.emissions_list = {};
+  }
+  ngOnInit(): void {
+
     this.getSources();
   }
 
@@ -170,44 +173,76 @@ export class InteractiveComponent implements OnInit {
       this.emissions_list['solar'].name,
       this.emissions_list['geothermal'].name
     ];
-    this.emissions_data = [
-      '',
-      parseInt(this.sources_list['petroleum'].energy) * parseInt(this.emissions_list['petroleum'].emissions),
-      parseInt(this.sources_list['coal'].energy) * parseInt(this.emissions_list['coal'].emissions),
-      parseInt(this.sources_list['natural_gas'].energy) * parseInt(this.emissions_list['natural_gas'].emissions),
-      parseInt(this.sources_list['nuclear'].energy) * parseInt(this.emissions_list['nuclear'].emissions),
-      parseInt(this.sources_list['hydro'].energy) * parseInt(this.emissions_list['hydro'].emissions),
-      parseInt(this.sources_list['biofuels'].energy) * parseInt(this.emissions_list['biofuels'].emissions),
-      parseInt(this.sources_list['wind'].energy) * parseInt(this.emissions_list['wind'].emissions),
-      parseInt(this.sources_list['solar'].energy) * parseInt(this.emissions_list['solar'].emissions),
-      parseInt(this.sources_list['geothermal'].energy) * parseInt(this.emissions_list['geothermal'].emissions)
-    ];
-
-    this.gLib = this.gChartService.getGoogle();
-    this.gLib.charts.load('current', {packages:['controls', 'corechart']});
-    this.gLib.charts.setOnLoadCallback(this.drawVisualization.bind(this));
 
     this.calculateTotalEnergy();
     this.updateEmissionsData();
+    this.gLib.charts.setOnLoadCallback(this.drawVisualization.bind(this));
+
+
+
   }
 
   /**
   *
   **/
+  calcEmissionsPerSource(source){
+    return parseInt(this.sources_list[source].energy) * parseInt(this.emissions_list[source].emissions) * .001;
+  }
+
+  /**
+  *
+  **/
+  formatSources(){
+    // format y
+    for (var colIndex = 1; colIndex < this.sources_datatable.getNumberOfColumns(); colIndex++) {
+      this.sources_formatter.format(this.sources_datatable, colIndex);
+    }
+  }
+  /**
+  *
+  **/
+  formatEmissions(){
+    // format y
+    for (var colIndex = 1; colIndex < this.emissions_datatable.getNumberOfColumns(); colIndex++) {
+      this.emissions_formatter.format(this.emissions_datatable, colIndex);
+    }
+  }
+  /**
+  *
+  **/
   drawVisualization() {
+
+    this.sources_datatable = google.visualization.arrayToDataTable(
+        [this.sources_columns, this.sources_data]);
+
+    this.sources_formatter = new google.visualization.NumberFormat({
+      pattern: '# PWh'
+    });
+
+    this.formatSources();
+
     // sources chart
     this.sources_wrapper = new google.visualization.ChartWrapper({
       chartType: 'ColumnChart',
-      dataTable: [this.sources_columns, this.sources_data],
+      dataTable: this.sources_datatable,
       options: this.options_sources,
       containerId: 'divSourcesChart'
     });
     this.sources_wrapper.draw();
 
+    this.emissions_datatable = google.visualization.arrayToDataTable(
+        [this.emissions_columns, this.emissions_data]);
+
+    this.emissions_formatter = new google.visualization.NumberFormat({
+      pattern: '# Gt'
+    });
+
+    this.formatEmissions();
+
     // emissions chart
     this.emissions_wrapper = new google.visualization.ChartWrapper({
       chartType: 'ColumnChart',
-      dataTable: [this.emissions_columns, this.emissions_data],
+      dataTable: this.emissions_datatable,
       options: this.options_emissions,
       containerId: 'divEmissionsChart'
     });
@@ -228,15 +263,15 @@ export class InteractiveComponent implements OnInit {
     //
     this.emissions_data = [
         '',
-        parseInt(this.sources_list['petroleum'].energy) * this.emissions_list['petroleum'].emissions,
-        parseInt(this.sources_list['coal'].energy) * this.emissions_list['coal'].emissions,
-        parseInt(this.sources_list['natural_gas'].energy) * this.emissions_list['natural_gas'].emissions,
-        parseInt(this.sources_list['nuclear'].energy) * this.emissions_list['nuclear'].emissions,
-        parseInt(this.sources_list['hydro'].energy) * this.emissions_list['hydro'].emissions,
-        parseInt(this.sources_list['biofuels'].energy) * this.emissions_list['biofuels'].emissions,
-        parseInt(this.sources_list['wind'].energy) * this.emissions_list['wind'].emissions,
-        parseInt(this.sources_list['solar'].energy) * this.emissions_list['solar'].emissions,
-        parseInt(this.sources_list['geothermal'].energy) * this.emissions_list['geothermal'].emissions
+        this.calcEmissionsPerSource('petroleum'),
+        this.calcEmissionsPerSource('coal'),
+        this.calcEmissionsPerSource('natural_gas'),
+        this.calcEmissionsPerSource('nuclear'),
+        this.calcEmissionsPerSource('hydro'),
+        this.calcEmissionsPerSource('biofuels'),
+        this.calcEmissionsPerSource('wind'),
+        this.calcEmissionsPerSource('solar'),
+        this.calcEmissionsPerSource('geothermal')
     ];
 
 
@@ -281,7 +316,7 @@ export class InteractiveComponent implements OnInit {
   **/
   calculateTotalEmissions(){
     let temp_emissions = this.emissions_data[1] + this.emissions_data[2] + this.emissions_data[3] + this.emissions_data[4] + this.emissions_data[5] + this.emissions_data[6] + this.emissions_data[7] + this.emissions_data[8] + this.emissions_data[9];
-    this.total_emissions = temp_emissions  * .001;
+    this.total_emissions = temp_emissions ;
 
     // calc % of recommended emissions
   	this.pctCO2emissions = this.roundNumber(((this.total_emissions/this.max_emissions)*100),0);
@@ -303,11 +338,17 @@ export class InteractiveComponent implements OnInit {
     this.updateEmissionsData();
 
     // redraw sources
-    this.sources_wrapper.setDataTable([this.sources_columns, this.sources_data]);
+    this.sources_datatable = google.visualization.arrayToDataTable(
+        [this.sources_columns, this.sources_data]);
+    this.sources_wrapper.setDataTable(this.sources_datatable);
+    this.formatSources();
     this.sources_wrapper.draw();
 
     // redraw emissions
-    this.emissions_wrapper.setDataTable([this.emissions_columns, this.emissions_data]);
+    this.emissions_datatable = google.visualization.arrayToDataTable(
+        [this.emissions_columns, this.emissions_data]);
+    this.emissions_wrapper.setDataTable(this.emissions_datatable);
+    this.formatEmissions();
     this.emissions_wrapper.draw();
 
     this.calculateTotalEnergy();

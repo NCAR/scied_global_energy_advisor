@@ -1,6 +1,6 @@
 export interface Source {
   id: string,
   name: string,
-  emergy: number
+  energy: number
   emissions: number
 }

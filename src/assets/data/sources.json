@@ -37,7 +37,7 @@
   },
   {
     "id":"wind",
-    "name": "name",
+    "name": "Wind",
     "energy": 10,
     "emissions": 0
   },
