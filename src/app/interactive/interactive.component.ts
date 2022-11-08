@@ -10,8 +10,8 @@ import { Source } from '../google-chart/service/source';
 })
 export class InteractiveComponent implements OnInit {
   private gLib: any;
-  title_sources = 'Energy Source Mix (in PWh)';
-  title_emissions = 'Gt of Carbon Dioxide emissions per MWh';
+  title_sources = 'Energy Source Mix';
+  title_emissions = 'Carbon Dioxide Emissions';
 
   public sources_list: any;
   public emissions_list: any;
@@ -71,6 +71,17 @@ export class InteractiveComponent implements OnInit {
       left: 70,
       top: 100,
       bottom: 10
+    },
+    series: {
+      0:{color:'#D55E00'},
+      1:{color:'#000000'},
+      2:{color:'#E69F00'},
+      3:{color:'#CC79A7'},
+      4:{color:'#2372B2'},
+      5:{color:'#159E74'},
+      6:{color:'#56B4E9'},
+      7:{color:'#F0E442'},
+      8:{color:'#999933'}
     }
   };
   options_emissions = {
@@ -85,7 +96,7 @@ export class InteractiveComponent implements OnInit {
     },
     vAxis: {
       textPosition: 'out',
-      title: 'Emissions',
+      title: 'Gt/PWh',
       format: 'decimal'
     },
     isStacked: true,
@@ -93,6 +104,17 @@ export class InteractiveComponent implements OnInit {
       left: 70,
       top: 100,
       bottom: 10
+    },
+    series: {
+      0:{color:'#D55E00'},
+      1:{color:'#000000'},
+      2:{color:'#E69F00'},
+      3:{color:'#CC79A7'},
+      4:{color:'#2372B2'},
+      5:{color:'#159E74'},
+      6:{color:'#56B4E9'},
+      7:{color:'#F0E442'},
+      8:{color:'#999933'}
     }
   };
 
@@ -121,7 +143,7 @@ export class InteractiveComponent implements OnInit {
             };
             this.emissions_list[d.id]= {
               name: d.name,
-              emissions: d.emissions
+              emissions: d.emissionsgt
             };
           }
           this.setupCharts();
@@ -186,7 +208,8 @@ export class InteractiveComponent implements OnInit {
   *
   **/
   calcEmissionsPerSource(source){
-    return parseInt(this.sources_list[source].energy) * parseInt(this.emissions_list[source].emissions) * .001;
+    return parseInt(this.sources_list[source].energy) * parseFloat(this.emissions_list[source].emissions);
+    //return parseInt(this.sources_list[source].energy) * parseInt(this.emissions_list[source].emissions) * .001;
   }
 
   /**
@@ -234,7 +257,7 @@ export class InteractiveComponent implements OnInit {
         [this.emissions_columns, this.emissions_data]);
 
     this.emissions_formatter = new google.visualization.NumberFormat({
-      pattern: '# Gt'
+      pattern: '#.## Gt'
     });
 
     this.formatEmissions();
@@ -397,6 +420,12 @@ export class InteractiveComponent implements OnInit {
     // update custom shared data
     this.sources_list[key].energy = value;
   }
+  /**
+  *
+  *
+  **/
+  public openDialog() {
 
+  }
 
 }

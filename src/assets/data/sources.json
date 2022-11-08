@@ -2,55 +2,64 @@
   {
     "id":"petroleum",
     "name": "Petroleum",
-    "energy": 50,
-    "emissions": 250
+    "energy": 5,
+    "emissionskg": 250,
+    "emissionsgt": 0.25
   },
   {
     "id":"coal",
     "name": "Coal",
-    "energy": 40,
-    "emissions": 350
+    "energy": 61,
+    "emissionskg": 330,
+    "emissionsgt": 0.33
   },
   {
     "id":"natural_gas",
     "name": "Natural Gas",
-    "energy": 30,
-    "emissions": 180
+    "energy": 41,
+    "emissionskg": 180,
+    "emissionsgt": 0.18
   },
   {
     "id":"nuclear",
     "name": "Nuclear",
-    "energy": 10,
-    "emissions": 0
+    "energy": 18,
+    "emissionskg": 12,
+    "emissionsgt": 0.012
   },
   {
     "id":"hydro",
     "name": "Hydro",
-    "energy": 10,
-    "emissions": 0
+    "energy": 28,
+    "emissionskg": 24,
+    "emissionsgt": 0.024
   },
   {
     "id":"biofuels",
     "name": "Biofuels",
-    "energy": 10,
-    "emissions": 200
+    "energy": 5,
+    "emissionskg": 20,
+    "emissionsgt": 0.02
   },
   {
     "id":"wind",
     "name": "Wind",
     "energy": 10,
-    "emissions": 0
+    "emissionskg": 11,
+    "emissionsgt": 0.011
   },
   {
     "id":"solar",
     "name": "Solar",
-    "energy": 10,
-    "emissions": 0
+    "energy": 6,
+    "emissionskg": 42,
+    "emissionsgt": 0.042
   },
   {
     "id":"geothermal",
     "name": "Geothermal",
-    "energy": 5,
-    "emissions": 30
+    "energy": 2,
+    "emissionskg": 38,
+    "emissionsgt": 0.038
   }
 ]

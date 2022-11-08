@@ -21,6 +21,15 @@
   justify-content : space-around;
   align-content: space-around;
 }
+mat-icon {
+  color: gold;
+}
+mat-icon.help {
+  color:blue;
+}
+h2 {
+  font-size: 1rem;
+}
 .energyOver {
   color:green;
 }
@@ -43,5 +52,155 @@
   }
   .mat-slider-thumb-label-text {
     opacity: 1 !important;
+  }
+
+  /* custom slider colors */
+  .slider.petroleum {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#D55E00;
+    }
+    .mat-slider-thumb-label {
+      background-color:#D55E00;
+    }
+    .mat-slider-track-fill  {
+      background-color:#D55E00;
+    }
+  }
+  .field.petroleum.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #D55E00;
+  }
+  .slider.coal {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#000000;
+    }
+    .mat-slider-thumb-label {
+      background-color:#000000;
+    }
+    .mat-slider-track-fill  {
+      background-color:#000000;
+    }
+  }
+  .field.coal.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #000000;
+  }
+  .slider.natural-gas {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#E69F00;
+    }
+    .mat-slider-thumb-label {
+      background-color:#E69F00;
+    }
+    .mat-slider-thumb-label-text {
+      color:#000000;
+    }
+    .mat-slider-track-fill  {
+      background-color:#E69F00;
+    }
+  }
+  .field.natural-gas.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #E69F00;
+  }
+  .field.nuclear.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #CC79A7;
+  }
+  .slider.nuclear {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#CC79A7;
+    }
+    .mat-slider-thumb-label {
+      background-color:#CC79A7;
+    }
+    .mat-slider-thumb-label-text {
+      color:#000000;
+    }
+    .mat-slider-track-fill  {
+      background-color:#CC79A7;
+    }
+  }
+  .field.hydro.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #2372B2;
+  }
+  .slider.hydro {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#2372B2;
+    }
+    .mat-slider-thumb-label {
+      background-color:#2372B2;
+    }
+    .mat-slider-track-fill  {
+      background-color:#2372B2;
+    }
+  }
+  .field.biofuels.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #159E74;
+  }
+  .slider.biofuels {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#159E74;
+    }
+    .mat-slider-thumb-label {
+      background-color:#159E74;
+    }
+    .mat-slider-track-fill  {
+      background-color:#159E74;
+    }
+  }
+  .field.wind.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #56B4E9;
+  }
+  .slider.wind {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#56B4E9;
+    }
+    .mat-slider-thumb-label {
+      background-color:#56B4E9;
+    }
+    .mat-slider-thumb-label-text {
+      color:#000000;
+    }
+    .mat-slider-track-fill  {
+      background-color:#56B4E9;
+    }
+  }
+  .field.solar.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #F0E442;
+  }
+  .slider.solar {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#F0E442;
+    }
+    .mat-slider-thumb-label {
+      background-color:#F0E442;
+    }
+    .mat-slider-thumb-label-text {
+      color:#000000;
+    }
+    .mat-slider-track-fill  {
+      background-color:#F0E442;
+    }
+  }
+  .field.geothermal.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom: 2px solid #999933;
+  }
+  .slider.geothermal {
+    /* custom slider colors */
+    .mat-slider-thumb {
+      background-color:#999933;
+    }
+    .mat-slider-thumb-label {
+      background-color:#999933;
+    }
+
+    .mat-slider-track-fill  {
+      background-color:#999933;
+    }
   }
 }
