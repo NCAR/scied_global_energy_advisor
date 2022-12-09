@@ -1,7 +1,10 @@
 export interface Source {
   id: string,
   name: string,
-  energy: number,
+  currentEnergy: number,
+  sustainableEnergy: number,
+  costlow: number,
+  costhigh: number,
   emissionskw: number
   emissionsgt: number
 }

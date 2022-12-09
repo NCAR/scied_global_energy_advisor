@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  max-width: 1080px;
+  min-width: 450px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container .row {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content : space-around;
+  align-content: space-around;
+}
+.container .row.header {
+  align-content: space-between;
+  justify-content: space-between;
+    background-color: #DBE2E9;
+    align-items: center;
+}
+.header {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+h1 {
+  color: #00797c;
+  font-weight: bold;
+  vertical-align: middle;
+}
+::ng-deep .mat-tooltip{
+  background-color: rgb(0,0,0,1);
+  font-size: 14px;
+}
+.help {
+  background-color: #012169;
+  color: white;
+}
+.reset {
+  background-color: #ffb931;
+  color: black;
+  margin-right: 20px;
+}
+.toggle {
+  background-color: #012169;
+  color:#fff;
+}
+.nav {
+  background-color:#a8c700;
+  color:black;
+  margin-right: 20px;
+}
+.nav:hover {
+  background-color: red;
+}
+.sources {
+  margin-right: 20px;
+}
+.container .row.table_container {
+  justify-content : flex-start;
+  align-content: flex-start;
+}
+.container .row.restart_container {
+  justify-content : flex-start;
+  align-content: flex-start;
+}
+.hidden {
+  display:none;
+}

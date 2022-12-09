@@ -1,15 +1,23 @@
 
 .mat-slider-vertical {
-  height: 150px;
+  height: 100px;
 }
 .reduce-width {
   width: 85px;
+}
+h1 {
+  color: #00797c;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.energyInfo, .emissionsInfo {
+  vertical-align: middle;
 }
 .container {
   display: flex;
   max-width: 1080px;
   min-width: 450px;
-  padding: 20px;
+  padding: 10px 20px;
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
@@ -21,26 +29,78 @@
   justify-content : space-around;
   align-content: space-around;
 }
-mat-icon {
-  color: gold;
+.container .row.header {
+  justify-content: space-between;
+  background-color: #DBE2E9;
+  align-items: center;
+}
+.home, h1 {
+  display: inline;
+}
+.header {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+.navbar {
+
+}
+.container .row.footer {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+h2 {
+  margin-bottom: 0;
+}
+.help {
+  background-color: #012169;
+  color: white;
+}
+.reset {
+  background-color: #ffb931;
+  color: black;
+  margin-right: 20px;
+}
+.toggle {
+  background-color: #012169;
+  color:#fff;
+}
+.nav {
+  background-color:#a8c700;
+  color:black;
+  margin-right: 20px;
+}
+.sources {
+  margin-right: 20px;
+}
+
+.hidden {
+  display:none;
+}
+mat-icon.success {
+  color: #ffb931;
+  vertical-align: middle;
+}
+mat-icon.failure {
+  color: #cc0000;
+  vertical-align: middle;
 }
 mat-icon.help {
-  color:blue;
+
 }
 h2 {
   font-size: 1rem;
 }
 .energyOver {
-  color:green;
+  color:black;
 }
 .energyUnder {
-  color:red;
+  color:#cc0000;
 }
 .emissionsUnder {
-  color:green;
+  color:black;
 }
 .emissionsOver {
-  color:red;
+  color:#cc0000;
 }
  :host ::ng-deep {
   .mat-slider-thumb-label {

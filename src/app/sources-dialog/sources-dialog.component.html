@@ -1,0 +1,80 @@
+<h1 mat-dialog-title>Learn more about the costs and impacts of different energy sources.</h1>
+ <div mat-dialog-content>
+
+<table id="energySourceTable">
+  <caption>
+    <p><span class="ff">* Red background</span> = Energy sources from fossil fuels</p>
+    <p><span class="re"># Green background</span> = Renewable energy sources</p>
+</caption>
+  <thead>
+    <tr>
+      <th>Energy Source</th>
+      <th>Emissions<br/>(per kWh)</th>
+      <th>Cost<br/>(per kWh)</th>
+      <th>Environmental Impacts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="ff">
+      <td>* Petroleum</td>
+      <td>250 g/kWh</td>
+      <td>10 cents per kWh (varies)</td>
+      <td>Local air pollution, CO2 emissions, spills from ships or pipelines</td>
+    </tr>
+    <tr class="ff">
+      <td>* Coal</td>
+      <td>330 g/kWh</td>
+      <td>4 cents per KWh</td>
+      <td>Major source of CO<sub>2</sub> emissions, air pollution, waste materials including heavy metals </td>
+    </tr>
+    <tr class="ff">
+      <td>* Natural Gas</td>
+      <td>180 g/kWh</td>
+      <td>7-10 cents per KWh</td>
+      <td>CO<sub>2</sub> and methane emissions, air pollution, environmental disruption from drilling and transport</td>
+    </tr>
+    <tr>
+      <td>Nuclear</td>
+      <td>12 g/kWh</td>
+      <td>6 cents per KWh</td>
+      <td>Radioactive waste and contamination, requires large amounts of water for operation</td>
+    </tr>
+
+    <tr class="re">
+      <td># Hydroelectric</td>
+      <td>24 g/KWh</td>
+      <td>3 cents per KWh</td>
+      <td>Disruption of waterways, changes to fish migration and sediment distribution </td>
+    </tr>
+
+    <tr class="re">
+      <td># Biofuels</td>
+      <td>200 g/KWh</td>
+      <td>8-15 cents per KWh</td>
+      <td>CO<sub>2</sub> and methane emissions (varies with fuel type), repurposing crops that could feed people or animals  </td>
+    </tr>
+    <tr class="re">
+      <td># Wind</td>
+      <td>11 g/KWh</td>
+      <td>4-9 cents per KWh</td>
+      <td>Landscape changes, noise, some known effects on birds and bats</td>
+    </tr>
+    <tr class="re">
+      <td># Solar</td>
+      <td>50 g/Kwh</td>
+      <td>8-20 cents per KWh</td>
+      <td>Landscape changes, possible effects on birds or other wildlife</td>
+    </tr>
+    <tr class="re">
+      <td># Geothermal</td>
+      <td>38 g/KWh</td>
+      <td>3 cents per KWh</td>
+      <td>Disruptions to natural systems or aquifers</td>
+    </tr>
+  </tbody>
+</table>
+
+ </div>
+ <div mat-dialog-actions>
+ <button mat-button (click)="close()" class="nav">Close</button>
+ </div>

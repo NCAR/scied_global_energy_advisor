@@ -2,63 +2,90 @@
   {
     "id":"petroleum",
     "name": "Petroleum",
-    "energy": 5,
+    "currentEnergy": 5,
+    "sustainableEnergy": 1,
+    "costlow":0.04,
+    "costhigh":0,
     "emissionskg": 250,
     "emissionsgt": 0.25
   },
   {
     "id":"coal",
     "name": "Coal",
-    "energy": 61,
+    "currentEnergy": 61,
+    "sustainableEnergy": 7,
+    "costlow":0.02,
+    "costhigh":0,
     "emissionskg": 330,
     "emissionsgt": 0.33
   },
   {
     "id":"natural_gas",
     "name": "Natural Gas",
-    "energy": 41,
+    "currentEnergy": 41,
+    "sustainableEnergy": 22,
+    "costlow":0.037,
+    "costhigh":0.047,
     "emissionskg": 180,
     "emissionsgt": 0.18
   },
   {
     "id":"nuclear",
     "name": "Nuclear",
-    "energy": 18,
+    "currentEnergy": 18,
+    "sustainableEnergy": 20,
+    "costlow":0.01,
+    "costhigh":0.12,
     "emissionskg": 12,
     "emissionsgt": 0.012
   },
   {
     "id":"hydro",
     "name": "Hydro",
-    "energy": 28,
+    "currentEnergy": 28,
+    "sustainableEnergy": 33,
+    "costlow":0.02,
+    "costhigh":0.10,
     "emissionskg": 24,
     "emissionsgt": 0.024
   },
   {
     "id":"biofuels",
     "name": "Biofuels",
-    "energy": 5,
+    "currentEnergy": 5,
+    "sustainableEnergy": 16,
+    "costlow":0.03,
+    "costhigh":0.12,
     "emissionskg": 20,
     "emissionsgt": 0.02
   },
   {
     "id":"wind",
     "name": "Wind",
-    "energy": 10,
+    "currentEnergy": 10,
+    "sustainableEnergy": 39,
+    "costlow":0.04,
+    "costhigh":0.09,
     "emissionskg": 11,
     "emissionsgt": 0.011
   },
   {
     "id":"solar",
     "name": "Solar",
-    "energy": 6,
+    "currentEnergy": 6,
+    "sustainableEnergy": 35,
+    "costlow":0.12,
+    "costhigh":0.45,
     "emissionskg": 42,
     "emissionsgt": 0.042
   },
   {
     "id":"geothermal",
     "name": "Geothermal",
-    "energy": 2,
+    "currentEnergy": 2,
+    "sustainableEnergy": 2,
+    "costlow":0.04,
+    "costhigh":0.10,
     "emissionskg": 38,
     "emissionsgt": 0.038
   }

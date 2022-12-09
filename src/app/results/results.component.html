@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row header">
+    <div class="col-8">
+      <h1>Compare your Energy Mix</h1>
+      <p>Definitions:
+        <button mat-button
+          matTooltip="The current mix represents how much of each energy source the world used in 2019. In this mix, fossil fuels including coal and natural gas are the primary sources of energy worldwide. "
+          aria-label="Button that displays a tooltip describing the definition of current mix">Current Mix</button>
+        <button mat-button
+          matTooltip="The sustainable mix represents an idealized energy source distribution meeting goals for global emissions limits. In this mix, solar and wind use increase while coal use decreases dramatically, from 38% to just 4%.  "
+          aria-label="Button that displays a tooltip describing the definition of sustainable mix">Sustainable Mix</button>
+      </p>
+    </div>
+    <div class="col-4 navbar">
+      <button mat-raised-button class="sources" (click)="openSourcesDialog()">Learn More <mat-icon aria-hidden="false" aria-label="About energy sources." fontIcon="help"></mat-icon></button>
+      <button mat-raised-button class="nav" [routerLink]="['/main','remix']" >Remix <mat-icon aria-hidden="false" aria-label="Change your selections" fontIcon="change_circle"></mat-icon></button>
+      <button mat-raised-button class="reset" [routerLink]="['/introduction']" >Start Over <mat-icon aria-hidden="false" aria-label="Go to results page." fontIcon="restart_alt"></mat-icon></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div id="divSourcesChart"></div>
+    </div>
+  </div>
+  <div class="row table_container">
+    <div class="col-12">
+      <button mat-raised-button class="toggle" (click)="toggleTable()">{{toggleText}} Data Table <mat-icon aria-hidden="false" aria-label="toggle data table" [fontIcon]="visibility"></mat-icon></button>
+      <div id="divTableChart" [ngClass]="{'hidden': showTable === false}"></div>
+    </div>
+  </div>
+</div>

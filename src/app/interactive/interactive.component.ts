@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GoogleChartService } from '../google-chart/service/google-chart.service';
 import { DataService } from '../google-chart/service/data.service';
 import { Source } from '../google-chart/service/source';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { InstructionsDialogComponent } from '../instructions/instructions-dialog.component';
+import { SourcesDialogComponent } from '../sources-dialog/sources-dialog.component';
 
 @Component({
   selector: 'app-interactive',
@@ -10,11 +14,20 @@ import { Source } from '../google-chart/service/source';
 })
 export class InteractiveComponent implements OnInit {
   private gLib: any;
+  status:string = '';
   title_sources = 'Energy Source Mix';
   title_emissions = 'Carbon Dioxide Emissions';
-
+  instructionsDialog: MatDialogRef<InstructionsDialogComponent>;
+  sourcesDialog: MatDialogRef<SourcesDialogComponent>;
   public sources_list: any;
   public emissions_list: any;
+  showTable:boolean = false;
+  toggleText:string = 'Show';
+  visibility:string = 'visibility';
+  total_cost:any = {
+                      'high':0,
+                      'low':0
+                    };
 
   energyClass = 'energyOver';
   emissionsClass = 'emissionsOver';
@@ -34,6 +47,8 @@ export class InteractiveComponent implements OnInit {
  /** charts **/
   sources_columns;
   sources_wrapper;
+  sources_wrapper_table;
+  list_datatable;
   sources_data;
   sources_datatable;
   sources_formatter;
@@ -52,9 +67,9 @@ export class InteractiveComponent implements OnInit {
 
   options_sources = {
     title: this.title_sources,
-    height:400,
-    width: 450,
-    legend: { position: 'top', maxLines: 3 },
+    height:300,
+    width: 350,
+    legend: { position: 'none', maxLines: 3 },
     isStacked: 'percent',
     animation: {
       duration: 1000,
@@ -69,7 +84,7 @@ export class InteractiveComponent implements OnInit {
     },
     chartArea: {
       left: 70,
-      top: 100,
+      top: 10,
       bottom: 10
     },
     series: {
@@ -86,9 +101,9 @@ export class InteractiveComponent implements OnInit {
   };
   options_emissions = {
     title: this.title_emissions,
-    height:400,
-    width: 450,
-    legend: { position: 'top', maxLines: 3 },
+    height:300,
+    width: 350,
+    legend: { position: 'none', maxLines: 3 },
     animation: {
       duration: 1000,
       easing: 'inAndOut',
@@ -102,7 +117,7 @@ export class InteractiveComponent implements OnInit {
     isStacked: true,
     chartArea: {
       left: 70,
-      top: 100,
+      top: 10,
       bottom: 10
     },
     series: {
@@ -119,7 +134,11 @@ export class InteractiveComponent implements OnInit {
   };
 
 
-  constructor(private gChartService: GoogleChartService, private data: DataService) {
+  constructor(private route: ActivatedRoute,
+              private dialogModel: MatDialog,
+              private dialog: MatDialog,
+              private gChartService: GoogleChartService,
+              private data: DataService) {
     this.gLib = this.gChartService.getGoogle();
     this.gLib.charts.load('current', {packages:['controls', 'corechart']});
 
@@ -128,6 +147,8 @@ export class InteractiveComponent implements OnInit {
   }
   ngOnInit(): void {
 
+    const routeParams = this.route.snapshot.paramMap;
+    this.status = routeParams.get('status');
     this.getSources();
   }
 
@@ -137,10 +158,19 @@ export class InteractiveComponent implements OnInit {
       this.data.getSource()
         .subscribe(resp => {
           for (const d of (resp.body as any)) {
-            this.sources_list[d.id] = {
-              name: d.name,
-              energy: d.energy
-            };
+
+            if(this.status != 'remix'){
+
+              this.sources_list[d.id] = {
+                name: d.name,
+                currentEnergy: d.currentEnergy
+              };
+            } else {
+              this.sources_list[d.id] = {
+                name: this.data.custom_source_structure[d.id].name,
+                currentEnergy: this.data.custom_source_structure[d.id].energy
+              };
+            }
             this.emissions_list[d.id]= {
               name: d.name,
               emissions: d.emissionsgt
@@ -171,16 +201,24 @@ export class InteractiveComponent implements OnInit {
 
     this.sources_data = [
       '',
-      this.sources_list['petroleum'].energy,
-      this.sources_list['coal'].energy,
-      this.sources_list['natural_gas'].energy,
-      this.sources_list['nuclear'].energy,
-      this.sources_list['hydro'].energy,
-      this.sources_list['biofuels'].energy,
-      this.sources_list['wind'].energy,
-      this.sources_list['solar'].energy,
-      this.sources_list['geothermal'].energy
+      this.sources_list['petroleum'].currentEnergy,
+      this.sources_list['coal'].currentEnergy,
+      this.sources_list['natural_gas'].currentEnergy,
+      this.sources_list['nuclear'].currentEnergy,
+      this.sources_list['hydro'].currentEnergy,
+      this.sources_list['biofuels'].currentEnergy,
+      this.sources_list['wind'].currentEnergy,
+      this.sources_list['solar'].currentEnergy,
+      this.sources_list['geothermal'].currentEnergy
     ];
+
+    // update record for custom_source_structure
+    for (const key in this.sources_list) {
+      const energy_value = parseInt(this.sources_list[key].currentEnergy);
+      const name_value = String(this.sources_list[key].name);
+      this.data.custom_source_structure[key].energy=energy_value;
+      this.data.custom_source_structure[key].name=name_value;
+    }
 
     // set up emissions
     this.emissions_columns= [
@@ -201,16 +239,17 @@ export class InteractiveComponent implements OnInit {
     this.gLib.charts.setOnLoadCallback(this.drawVisualization.bind(this));
 
 
-
   }
 
   /**
   *
   **/
   calcEmissionsPerSource(source){
-    return parseInt(this.sources_list[source].energy) * parseFloat(this.emissions_list[source].emissions);
-    //return parseInt(this.sources_list[source].energy) * parseInt(this.emissions_list[source].emissions) * .001;
+    return parseInt(this.sources_list[source].currentEnergy) * parseFloat(this.emissions_list[source].emissions);
+    //return parseInt(this.sources_list[source].currentEnergy) * parseInt(this.emissions_list[source].emissions) * .001;
   }
+
+
 
   /**
   *
@@ -235,7 +274,7 @@ export class InteractiveComponent implements OnInit {
   **/
   drawVisualization() {
 
-    this.sources_datatable = google.visualization.arrayToDataTable(
+    this.sources_datatable = this.gLib.visualization.arrayToDataTable(
         [this.sources_columns, this.sources_data]);
 
     this.sources_formatter = new google.visualization.NumberFormat({
@@ -270,6 +309,67 @@ export class InteractiveComponent implements OnInit {
       containerId: 'divEmissionsChart'
     });
     this.emissions_wrapper.draw();
+
+
+    this.list_datatable = new google.visualization.DataTable();
+    this.list_datatable.addColumn('string','Sources');
+    this.list_datatable.addColumn('number','PWh');
+    this.list_datatable.addColumn('number','Gt');
+    this.list_datatable.addRows([
+      [
+        this.sources_list['petroleum'].name,
+        this.sources_list['petroleum'].currentEnergy,
+        this.emissions_data[1]
+      ],
+      [
+        this.sources_list['coal'].name,
+        this.sources_list['coal'].currentEnergy,
+        this.emissions_data[2]
+      ],
+      [
+        this.sources_list['natural_gas'].name,
+        this.sources_list['natural_gas'].currentEnergy,
+        this.emissions_data[3]
+      ],
+      [
+        this.sources_list['nuclear'].name,
+        this.sources_list['nuclear'].currentEnergy,
+        this.emissions_data[4]
+      ],
+      [
+        this.sources_list['hydro'].name,
+        this.sources_list['hydro'].currentEnergy,
+        this.emissions_data[5]
+      ],
+      [
+        this.sources_list['biofuels'].name,
+        this.sources_list['biofuels'].currentEnergy,
+        this.emissions_data[6]
+      ],[
+        this.sources_list['wind'].name,
+        this.sources_list['wind'].currentEnergy,
+        this.emissions_data[7]
+      ],
+      [
+        this.sources_list['solar'].name,
+        this.sources_list['solar'].currentEnergy,
+        this.emissions_data[8]
+      ],
+      [
+        this.sources_list['geothermal'].name,
+        this.sources_list['geothermal'].currentEnergy,
+        this.emissions_data[9]
+      ]
+    ]);
+
+    this.sources_wrapper_table = new google.visualization.ChartWrapper({
+      chartType: 'Table',
+      dataTable: this.list_datatable,
+      options: {showRowNumber: false, width: '100%', height: '100%'},
+      containerId: 'divTableChart'
+    });
+    this.sources_wrapper_table.draw();
+
 
   }
 
@@ -306,7 +406,7 @@ export class InteractiveComponent implements OnInit {
    *
   **/
   onSliderInputChange(event, source) {
-    this.sources_list[source].energy = event.value;
+    this.sources_list[source].currentEnergy = event.value;
     this.updateChart(source);
   }
   /**
@@ -322,7 +422,7 @@ export class InteractiveComponent implements OnInit {
   *
   **/
   calculateTotalEnergy(){
-    this.total_energy = parseInt(this.sources_list['petroleum'].energy + this.sources_list['coal'].energy + this.sources_list['natural_gas'].energy + this.sources_list['nuclear'].energy + this.sources_list['hydro'].energy + this.sources_list['biofuels'].energy + this.sources_list['wind'].energy + this.sources_list['solar'].energy + this.sources_list['geothermal'].energy);
+    this.total_energy = parseInt(this.sources_list['petroleum'].currentEnergy + this.sources_list['coal'].currentEnergy + this.sources_list['natural_gas'].currentEnergy + this.sources_list['nuclear'].currentEnergy + this.sources_list['hydro'].currentEnergy + this.sources_list['biofuels'].currentEnergy + this.sources_list['wind'].currentEnergy + this.sources_list['solar'].currentEnergy + this.sources_list['geothermal'].currentEnergy);
     this.pctEnergy = this.roundNumber(((this.total_energy/this.max_energy)*100),0);
 
 
@@ -331,6 +431,28 @@ export class InteractiveComponent implements OnInit {
     } else {
       this.energyClass = 'energyUnder';
     }
+
+    this.total_cost['high'] = (parseFloat(this.sources_list['petroleum'].currentEnergy) * 1000000000000) * parseFloat(this.sources_list['petroleum'].costhigh) +
+                          (parseFloat(this.sources_list['coal'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['coal'].costhigh) +
+                          (parseFloat(this.sources_list['natural_gas'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['natural_gas'].costhigh) +
+                          (parseFloat(this.sources_list['nuclear'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['nuclear'].costhigh) +
+                          (parseFloat(this.sources_list['hydro'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['hydro'].costhigh) +
+                          (parseFloat(this.sources_list['biofuels'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['biofuels'].costhigh) +
+                          (parseFloat(this.sources_list['wind'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['wind'].costhigh) +
+                          (parseFloat(this.sources_list['solar'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['solar'].costhigh) +
+                          (parseFloat(this.sources_list['geothermal'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['geothermal'].costhigh);
+    this.total_cost['low'] = (parseFloat(this.sources_list['petroleum'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['petroleum'].costlow) +
+                          (parseFloat(this.sources_list['coal'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['coal'].costlow) +
+                          (parseFloat(this.sources_list['natural_gas'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['natural_gas'].costlow) +
+                          (parseFloat(this.sources_list['nuclear'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['nuclear'].costlow) +
+                          (parseFloat(this.sources_list['hydro'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['hydro'].costlow) +
+                          (parseFloat(this.sources_list['biofuels'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['biofuels'].costlow) +
+                          (parseFloat(this.sources_list['wind'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['wind'].costlow) +
+                          (parseFloat(this.sources_list['solar'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['solar'].costlow) +
+                          (parseFloat(this.sources_list['geothermal'].currentEnergy) * 1000000000000)  * parseFloat(this.sources_list['geothermal'].costlow);
+
+
+
   }
 
   /**
@@ -357,7 +479,9 @@ export class InteractiveComponent implements OnInit {
   **/
   updateChart(source) {
 
-    this.sources_data[this.getKey(source)] = parseInt(this.sources_list[source].energy);
+    this.sources_data[this.getKey(source)] = parseInt(this.sources_list[source].currentEnergy);
+    this.data.updateCustomSource(source,parseInt(this.sources_list[source].currentEnergy));
+
     this.updateEmissionsData();
 
     // redraw sources
@@ -376,6 +500,29 @@ export class InteractiveComponent implements OnInit {
 
     this.calculateTotalEnergy();
     this.updateEmissionsData();
+
+    this.list_datatable.setCell(0,1,this.sources_list['petroleum'].currentEnergy);
+    this.list_datatable.setCell(0,2,this.emissions_data[1]);
+    this.list_datatable.setCell(1,1,this.sources_list['coal'].currentEnergy);
+    this.list_datatable.setCell(1,2,this.emissions_data[2]);
+    this.list_datatable.setCell(2,1,this.sources_list['natural_gas'].currentEnergy);
+    this.list_datatable.setCell(2,2,this.emissions_data[3]);
+    this.list_datatable.setCell(3,1,this.sources_list['nuclear'].currentEnergy);
+    this.list_datatable.setCell(3,2,this.emissions_data[4]);
+    this.list_datatable.setCell(4,1,this.sources_list['hydro'].currentEnergy);
+    this.list_datatable.setCell(4,2,this.emissions_data[5]);
+    this.list_datatable.setCell(5,1,this.sources_list['biofuels'].currentEnergy);
+    this.list_datatable.setCell(5,2,this.emissions_data[6]);
+    this.list_datatable.setCell(6,1,this.sources_list['wind'].currentEnergy);
+    this.list_datatable.setCell(6,2,this.emissions_data[7]);
+    this.list_datatable.setCell(7,1,this.sources_list['solar'].currentEnergy);
+    this.list_datatable.setCell(7,2,this.emissions_data[8]);
+    this.list_datatable.setCell(8,1,this.sources_list['geothermal'].currentEnergy);
+    this.list_datatable.setCell(8,2,this.emissions_data[9]);
+    this.sources_wrapper_table.setDataTable(this.list_datatable);
+    this.sources_wrapper_table.draw();
+
+
   }
 
   getKey(source){
@@ -418,14 +565,43 @@ export class InteractiveComponent implements OnInit {
   **/
   public updateCustomValue(key, value) {
     // update custom shared data
-    this.sources_list[key].energy = value;
+    this.sources_list[key].currentEnergy = value;
   }
   /**
   *
   *
   **/
   public openDialog() {
+ this.instructionsDialog = this.dialogModel.open(InstructionsDialogComponent);
+  }
+  /**
+  *
+  *
+  **/
+  public reset() {
+    //todo: reset values
+    this.status = 'init';
+    this.getSources();
+  }
 
+  /**
+  *
+  *
+  **/
+  public openSourcesDialog() {
+    this.sourcesDialog = this.dialogModel.open(SourcesDialogComponent);
+  }
+
+
+  toggleTable(){
+    this.showTable = !this.showTable;
+    if(this.toggleText == 'Show') {
+      this.toggleText = 'Hide';
+      this.visibility = 'visibility_off';
+    } else {
+      this.toggleText = 'Show';
+      this.visibility = 'visibility';
+    }
   }
 
 }

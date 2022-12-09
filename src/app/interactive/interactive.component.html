@@ -1,106 +1,136 @@
 <div class="container">
-  <h1>Choose Your Energy Mix <button mat-icon-button (click)="openDialog()"><mat-icon class="help" aria-hidden="false" aria-label="How to use these options." fontIcon="info"></mat-icon></button></h1>
+  <div class="row header">
+
+    <div class="col-8">
+    <button mat-button [routerLink]="['/introduction']" class="home"><mat-icon aria-hidden="false" aria-label="Go to home page and start over." fontIcon="arrow_back"></mat-icon></button>
+
+<h1>Choose Your Energy Mix in Petawatt-hours (PWh)</h1>
+    </div>
+    <div class="col-4 navbar"><button mat-raised-button class="sources" (click)="openSourcesDialog()">Learn More <mat-icon aria-hidden="false" aria-label="About energy sources." fontIcon="help"></mat-icon></button>
+
+      <button mat-raised-button class="reset" (click)="reset()">Reset <mat-icon aria-hidden="false" aria-label="Reset values." fontIcon="restart_alt"></mat-icon></button>
+
+      <button mat-raised-button class="help" (click)="openDialog()">Info <mat-icon aria-hidden="false" aria-label="How to use these options." fontIcon="info"></mat-icon></button>
+    </div>
+
+
+  </div>
+
   <div class="row">
     <div class="col-2">
-      <mat-slider class="slider petroleum" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['petroleum'].energy" [vertical]="vertical"
+      <mat-slider class="slider petroleum" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['petroleum'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'petroleum')">
       </mat-slider>
       <br />
       <mat-form-field appearance="fill" class="reduce-width field petroleum">
         <mat-label>Petroleum</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['petroleum'].energy"(change)="onInputChange($event,'petroleum')">
+        <input matInput type="number" [(ngModel)]="sources_list['petroleum'].currentEnergy"(change)="onInputChange($event,'petroleum')">
       </mat-form-field>
     </div>
     <div class="col-2">
 
-      <mat-slider class="slider coal" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['coal'].energy" [vertical]="vertical"
+      <mat-slider class="slider coal" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['coal'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'coal')">
       </mat-slider>
       <br />
       <mat-form-field appearance="fill" class="reduce-width field coal">
         <mat-label>Coal</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['coal'].energy"(change)="onInputChange($event,'coal')">
+        <input matInput type="number" [(ngModel)]="sources_list['coal'].currentEnergy"(change)="onInputChange($event,'coal')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider natural-gas" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['natural_gas'].energy" [vertical]="vertical"
+      <mat-slider class="slider natural-gas" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['natural_gas'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'natural_gas')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field natural-gas">
         <mat-label>Natural Gas</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['natural_gas'].energy" (change)="onInputChange($event,'natural_gas')">
+        <input matInput type="number" [(ngModel)]="sources_list['natural_gas'].currentEnergy" (change)="onInputChange($event,'natural_gas')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider nuclear" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['nuclear'].energy" [vertical]="vertical"
+      <mat-slider class="slider nuclear" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['nuclear'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'nuclear')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field nuclear">
         <mat-label>Nuclear</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['nuclear'].energy" (change)="onInputChange($event,'nuclear')">
+        <input matInput type="number" [(ngModel)]="sources_list['nuclear'].currentEnergy" (change)="onInputChange($event,'nuclear')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider hydro" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['hydro'].energy" [vertical]="vertical"
+      <mat-slider class="slider hydro" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['hydro'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'hydro')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field hydro">
         <mat-label>Hydroelectric</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['hydro'].energy" (change)="onInputChange($event,'hydro')">
+        <input matInput type="number" [(ngModel)]="sources_list['hydro'].currentEnergy" (change)="onInputChange($event,'hydro')">
       </mat-form-field>
     </div>
 
     <div class="col-2">
-      <mat-slider class="slider biofuels" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['biofuels'].energy" [vertical]="vertical"
+      <mat-slider class="slider biofuels" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['biofuels'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'biofuels')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field biofuels">
         <mat-label>Biofuels</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['biofuels'].energy" (change)="onInputChange($event,'biofuels')">
+        <input matInput type="number" [(ngModel)]="sources_list['biofuels'].currentEnergy" (change)="onInputChange($event,'biofuels')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider wind" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['wind'].energy" [vertical]="vertical"
+      <mat-slider class="slider wind" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['wind'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'wind')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field wind">
         <mat-label>Wind</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['wind'].energy" (change)="onInputChange($event,'wind')">
+        <input matInput type="number" [(ngModel)]="sources_list['wind'].currentEnergy" (change)="onInputChange($event,'wind')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider solar" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['solar'].energy" [vertical]="vertical"
+      <mat-slider class="slider solar" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['solar'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'solar')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field solar">
         <mat-label>Solar</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['solar'].energy" (change)="onInputChange($event,'solar')">
+        <input matInput type="number" [(ngModel)]="sources_list['solar'].currentEnergy" (change)="onInputChange($event,'solar')">
       </mat-form-field>
     </div>
     <div class="col-2">
-      <mat-slider class="slider geothermal" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['geothermal'].energy" [vertical]="vertical"
+      <mat-slider class="slider geothermal" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="step" [(ngModel)]="sources_list['geothermal'].currentEnergy" [vertical]="vertical"
         (change)="onSliderInputChange($event,'geothermal')">
       </mat-slider><br />
       <mat-form-field appearance="fill" class="reduce-width field geothermal">
         <mat-label>Geothermal</mat-label>
-        <input matInput type="number" [(ngModel)]="sources_list['geothermal'].energy" (change)="onInputChange($event,'geothermal')">
+        <input matInput type="number" [(ngModel)]="sources_list['geothermal'].currentEnergy" (change)="onInputChange($event,'geothermal')">
       </mat-form-field>
     </div>
   </div>
-</div>
-<div class="container">
+
   <div class="row">
-    <div class="col-6">
-      <h2>Goal 1: Produce 175 petawatt-hours of energy per year or more </h2>
+    <div class="col-4">
+      <h2>Goal 1</h2><h3>Produce 175 petawatt-hours of energy per year or more</h3>
+      <h4 [class]="energyClass" id="energyInfo"><mat-icon class="success" *ngIf="energyClass != 'energyUnder'" aria-hidden="false" aria-label="You've achieved your energy goals." fontIcon="verified"></mat-icon><mat-icon class="failure" *ngIf="energyClass == 'energyUnder'" aria-hidden="false" aria-label="You haven't achieved your energy goals." fontIcon="dangerous"></mat-icon> Total Energy Produced: {{ total_energy | number }} PWh</h4>
       <div id="divSourcesChart"></div>
-      <p [class]="energyClass"><mat-icon  *ngIf="energyClass != 'energyUnder'" aria-hidden="false" aria-label="You've achieved your energy goals." fontIcon="verified"></mat-icon> Total Energy Produced: {{ total_energy | number }} PWh<br/> You are producing {{ pctEnergy }}% of the energy needed.</p>
+      <div id="energyInfoBox" [class]="energyClass"><p [class]="energyClass">You are producing {{ pctEnergy }}% of the energy needed.</p>
       <p *ngIf="energyClass == 'energyUnder'"><strong>You must produce at least 175 PWh of energy to meet global demand.</strong></p>
+      </div>
     </div>
-    <div class="col-6">
-      <h2>Goal 2: Reduce CO<sub>2</sub> emissions to 21 gigatons per year or less</h2>
+    <div class="col-4">
+      <h2>Goal 2</h2><h3>Reduce CO<sub>2</sub> emissions to 21 gigatons per year or less</h3>
+      <h4 [class]="emissionsClass" id="emissionsInfo"><mat-icon class="success" *ngIf="emissionsClass != 'emissionsOver'" aria-hidden="false" aria-label="You've achieved your emissions goals." fontIcon="verified"></mat-icon><mat-icon class="failure" *ngIf="emissionsClass == 'emissionsOver'" aria-hidden="false" aria-label="You haven't achieved your emissions goals." fontIcon="dangerous"></mat-icon> Total Emissions Generated: {{ total_emissions | number }} Gt CO<sub>2</sub> emissions</h4>
       <div id="divEmissionsChart"></div>
-      <p [class]="emissionsClass"><mat-icon *ngIf="emissionsClass != 'emissionsOver'" aria-hidden="false" aria-label="You've achieved your emissions goals." fontIcon="verified"></mat-icon> Total Emissions Generated: {{ total_emissions | number }} Gt CO<sub>2</sub> emissions<br/> You are producting {{pctCO2emissions}}% of the maximum allowable emissions.</p>
+      <div id="emissionsInfoBox" [class]="emissionsClass"><p [class]="emissionsClass">You are producing {{pctCO2emissions}}% of the maximum allowable emissions.</p>
       <p *ngIf="emissionsClass == 'emissionsOver'"><strong>You must reduce your emissions to 21 Gt CO<sub>2</sub> or less.</strong></p>
+      </div>
+    </div>
+    <div class="col-4">
+      <button mat-raised-button class="toggle" (click)="toggleTable()">{{toggleText}} Data Table <mat-icon aria-hidden="false" aria-label="toggle data table" [fontIcon]="visibility"></mat-icon></button>
+      <div id="divTableChart" [ngClass]="{'hidden': showTable === false}"></div>
     </div>
   </div>
+  <div class="row footer">
+    <div class="col-12"><button mat-raised-button class="nav" [routerLink]="['/results']">Compare your mix <mat-icon aria-hidden="false" aria-label="Go to results page." fontIcon="play_arrow"></mat-icon></button>
+  </div>
+  </div>
+
+
+
 </div>

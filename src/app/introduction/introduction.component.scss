@@ -2,7 +2,7 @@
   display: flex;
   max-width: 1080px;
   min-width: 450px;
-  padding: 20px;
+  padding: 10px 20px;
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
@@ -13,4 +13,37 @@
   flex-wrap: wrap;
   justify-content : space-around;
   align-content: space-around;
+}
+.container .row.header {
+  align-content: space-between;
+  justify-content: space-between;
+    background-color: #DBE2E9;
+    align-items: center;
+}
+.header {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+h1 {
+  color: #00797c;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.help {
+  background-color: #012169;
+  color: white;
+}
+.reset {
+  background-color: #ffb931;
+  color: black;
+  margin-right: 20px;
+}
+.toggle {
+  background-color: #ffb931;
+}
+.nav {
+  background-color:#a8c700;
+  color:black;
+  margin-right: 20px;
 }

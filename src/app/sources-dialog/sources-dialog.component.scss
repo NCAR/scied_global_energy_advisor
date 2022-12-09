@@ -1,0 +1,62 @@
+
+.help {
+  background-color: #012169;
+  color: white;
+}
+.reset {
+  background-color: #ffb931;
+  color: black;
+  margin-right: 20px;
+}
+.toggle {
+  background-color: #ffb931;
+}
+.nav {
+  background-color:#a8c700;
+  color:black;
+  margin-right: 20px;
+}
+h1 {
+  color: #00797c;
+  font-weight: bold;
+  vertical-align: middle;
+}
+td {
+  background-color: #dbe2e9;
+}
+.ff td {
+  background-color: rgba(204, 0, 0, .5);
+}
+.re td {
+  background-color: rgba(168, 199, 0, .5);
+}
+#energySourceTable {
+}
+td, th {
+  padding: 8px;
+  margin:2px;
+}
+th {
+  border: 1px solid black;
+}
+caption {
+  caption-side:bottom;
+  text-align: left;
+  margin-top: 20px;
+}
+caption p {
+  margin-bottom: 5px;
+}
+caption .ff {
+  background-color: rgba(204, 0, 0, .5);
+  padding:5px;
+  min-width: 100px;
+  min-width: 130px;
+  display: inline-block;
+}
+caption .re {
+  background-color: rgba(168, 199, 0, .5);
+  padding:5px;
+  min-width: 130px;
+  display: inline-block;
+}
