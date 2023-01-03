@@ -12,9 +12,11 @@
       </p>
     </div>
     <div class="col-4 navbar">
-      <button mat-raised-button class="sources" (click)="openSourcesDialog()">Learn More <mat-icon aria-hidden="false" aria-label="About energy sources." fontIcon="help"></mat-icon></button>
-      <button mat-raised-button class="nav" [routerLink]="['/main','remix']" >Remix <mat-icon aria-hidden="false" aria-label="Change your selections" fontIcon="change_circle"></mat-icon></button>
+
       <button mat-raised-button class="reset" [routerLink]="['/introduction']" >Start Over <mat-icon aria-hidden="false" aria-label="Go to results page." fontIcon="restart_alt"></mat-icon></button>
+      <button mat-raised-button class="nav" [routerLink]="['/main','remix']" >Remix <mat-icon aria-hidden="false" aria-label="Change your selections" fontIcon="change_circle"></mat-icon></button>
+
+        <button mat-raised-button class="sources" (click)="openSourcesDialog()">Learn More <mat-icon aria-hidden="false" aria-label="About energy sources." fontIcon="help"></mat-icon></button>
     </div>
   </div>
   <div class="row">

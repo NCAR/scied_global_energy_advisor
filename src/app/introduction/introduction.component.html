@@ -10,20 +10,19 @@
   <div class="row">
     <div class="col-12">
       <h2>Congratulations! You have a new job as a Global Energy Advisor and the people of the planet need your help.</h2>
+      <img src="assets/images/eagle.png" alt="Eileen, the Energy Advisor Eagle" class="mascot_img"/>
         <p>
           As of 2021, 79% of the world's energy is produced from burning fossil fuels - petroleum, coal, and natural gas. Burning fossil fuels releases greenhouse gases that cause the climate to warm. Renewable energy sources, including solar and wind, provide alternatives to fossil fuel sources. As a way to slow down climate change, more countries are trying to switch to clean energy sources that do not produce greenhouse gases. In your new Global Energy Advisor role, you must choose a mix of energy sources for the planet that will both meet the global demand for energy and lower greenhouse gas emissions.</p>
         <h3>Choose a mix of energy sources to achieve these two goals:</h3>
         <ul>
           <li>
-            <strong>Goal 1:</strong> Reduce carbon dioxide (CO2) emissions to 21 gigatons per year or less. We will use this limit for our exercise; in reality, emissions need to be as low as possible to avoid the most severe climate change.
+            <strong>Goal 1:</strong> Reduce carbon dioxide (CO<sub>2</sub>) emissions to 21 gigatons per year or less. We will use this limit for our exercise; in reality, emissions need to be as low as possible to avoid the most severe climate change.
 
           </li>
           <li>
             <strong>Goal 2: </strong>Produce 175 petawatt-hours or more of energy per year, to provide enough energy for the world's population. </li>
-          <li>
-            While balancing these two goals, also consider solutions that will keep the cost of energy as low as possible, avoid damage to the environment, and have public support.
-          </li>
         </ul>
+        <p>  <button mat-button class="sources_link" (click)="openSourcesDialog()">Learn more about the costs and impacts of different energy sources.</button></p>
         <button  mat-raised-button class="nav" [routerLink]="['/main','init']">Start<mat-icon aria-hidden="false" aria-label="Go to results page." fontIcon="play_arrow"></mat-icon></button>
       </div>
     </div>

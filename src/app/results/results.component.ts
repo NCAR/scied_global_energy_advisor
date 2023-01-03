@@ -13,7 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip'
 })
 export class ResultsComponent implements OnInit {
   private gLib: any;
-  showTable:boolean = false;
+  showTable:boolean = true;
   toggleText:string = 'Show';
   visibility:string = 'visibility';
   data_table:any;
@@ -185,12 +185,37 @@ export class ResultsComponent implements OnInit {
     calculateTotalEnergy(type){
       var total = 0;
       if(type == 'custom'){
-        total = this.data.custom_source_structure['petroleum'].energy + this.data.custom_source_structure['coal'].energy + this.data.custom_source_structure['natural_gas'].energy + this.data.custom_source_structure['nuclear'].energy + this.data.custom_source_structure['hydro'].energy + this.data.custom_source_structure['biofuels'].energy + this.data.custom_source_structure['wind'].energy + this.data.custom_source_structure['solar'].energy + this.data.custom_source_structure['geothermal'].energy;
+        total = this.data.custom_source_structure['petroleum'].energy +
+        this.data.custom_source_structure['coal'].energy +
+        this.data.custom_source_structure['natural_gas'].energy +
+        this.data.custom_source_structure['nuclear'].energy +
+        this.data.custom_source_structure['hydro'].energy +
+        this.data.custom_source_structure['biofuels'].energy +
+        this.data.custom_source_structure['wind'].energy +
+        this.data.custom_source_structure['solar'].energy +
+        this.data.custom_source_structure['geothermal'].energy;
       } else if(type == 'current'){
-        total = this.sources_current_list['petroleum'].currentEnergy + this.sources_current_list['coal'].currentEnergy + this.sources_current_list['natural_gas'].currentEnergy + this.sources_current_list['nuclear'].currentEnergy + this.sources_current_list['hydro'].currentEnergy + this.sources_current_list['biofuels'].currentEnergy + this.sources_current_list['wind'].currentEnergy + this.sources_current_list['solar'].currentEnergy + this.sources_current_list['geothermal'].currentEnergy;
+        total = this.sources_current_list['petroleum'].currentEnergy +
+        this.sources_current_list['coal'].currentEnergy +
+        this.sources_current_list['natural_gas'].currentEnergy +
+        this.sources_current_list['nuclear'].currentEnergy +
+        this.sources_current_list['hydro'].currentEnergy +
+        this.sources_current_list['biofuels'].currentEnergy +
+        this.sources_current_list['wind'].currentEnergy +
+        this.sources_current_list['solar'].currentEnergy +
+        this.sources_current_list['geothermal'].currentEnergy;
       } else if(type == 'sustainable'){
-        total = this.sources_current_list['petroleum'].sustainableEnergy + this.sources_current_list['coal'].sustainableEnergy + this.sources_current_list['natural_gas'].sustainableEnergy + this.sources_current_list['nuclear'].sustainableEnergy + this.sources_current_list['hydro'].sustainableEnergy + this.sources_current_list['biofuels'].sustainableEnergy + this.sources_current_list['wind'].sustainableEnergy + this.sources_current_list['solar'].sustainableEnergy + this.sources_current_list['geothermal'].sustainableEnergy;
+        total = this.sources_current_list['petroleum'].sustainableEnergy +
+        this.sources_current_list['coal'].sustainableEnergy +
+        this.sources_current_list['natural_gas'].sustainableEnergy +
+        this.sources_current_list['nuclear'].sustainableEnergy +
+        this.sources_current_list['hydro'].sustainableEnergy +
+        this.sources_current_list['biofuels'].sustainableEnergy +
+        this.sources_current_list['wind'].sustainableEnergy +
+        this.sources_current_list['solar'].sustainableEnergy +
+        this.sources_current_list['geothermal'].sustainableEnergy;
       }
+      console.log(total);
       return total;
     }
     /**

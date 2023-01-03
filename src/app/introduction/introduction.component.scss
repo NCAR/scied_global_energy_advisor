@@ -8,6 +8,10 @@
   flex-direction: column;
   justify-content: space-around;
 }
+.mascot_img {
+  float: right;
+  max-height: 250px;
+}
 .container .row {
   display:flex;
   flex-wrap: wrap;
@@ -41,6 +45,9 @@ h1 {
 }
 .toggle {
   background-color: #ffb931;
+}
+.sources_link {
+  color:#00797c;
 }
 .nav {
   background-color:#a8c700;

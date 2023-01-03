@@ -52,7 +52,7 @@
   {
     "id":"biofuels",
     "name": "Biofuels",
-    "currentEnergy": 5,
+    "currentEnergy": 4,
     "sustainableEnergy": 16,
     "costlow":0.03,
     "costhigh":0.12,

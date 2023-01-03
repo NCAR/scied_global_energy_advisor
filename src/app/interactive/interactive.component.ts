@@ -152,7 +152,9 @@ export class InteractiveComponent implements OnInit {
     this.getSources();
   }
 
-
+  formatLabel(value: number) {
+      return Math.round(value);
+    }
     getSources() {
       let source;
       this.data.getSource()

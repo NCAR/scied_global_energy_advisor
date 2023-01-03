@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Directions</h1>
+<h1 mat-dialog-title>Instructions</h1>
  <div mat-dialog-content>
  <p>Use the sliders to choose the amount of each type of energy you want to produce to meet: </p><ul><li>Goal 1 - Produce 175 PWh of energy and</li><li>Goal 2 - Keep CO2 emissions below 21 Gt</li></ul>
   <h2>Helpful info:</h2>
@@ -10,7 +10,7 @@
   <ul>
     <li>Some energy sources release more CO<sub>2</sub> into the atmosphere than others. At present, the 21-Gt carbon emissions limit is the maximum amount that can be released each year to still avoid the most severe climate change impacts. Ultimately, emissions will need to be as close to zero as possible.</li>
     </ul>
-
+<p>  <button mat-button class="sources_link" (click)="openSourcesDialog()">Learn more about the costs and impacts of different energy sources.</button></p>
  </div>
  <div mat-dialog-actions>
  <button mat-button (click)="close()" class="nav">Close</button>
