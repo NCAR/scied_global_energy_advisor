@@ -14,7 +14,7 @@ import {MatTooltipModule} from '@angular/material/tooltip'
 export class ResultsComponent implements OnInit {
   private gLib: any;
   showTable:boolean = true;
-  toggleText:string = 'Show';
+  toggleText:string = 'Hide';
   visibility:string = 'visibility';
   data_table:any;
   data_table_chart:any;
@@ -152,7 +152,7 @@ export class ResultsComponent implements OnInit {
       ]);
 
       this.options = {
-        width: 900,
+        width: 850,
         height: 400,
         legend: { position: 'top', maxLines: 3 },
         isStacked: 'percent',

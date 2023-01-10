@@ -26,8 +26,8 @@ h1 {
 .container .row {
   display:flex;
   flex-wrap: wrap;
-  justify-content : space-around;
-  align-content: space-around;
+  justify-content : space-between;
+  align-content: space-between;
 }
 .container .row.header {
   justify-content: space-between;
@@ -51,6 +51,18 @@ h1 {
 h2 {
   margin-bottom: 0;
 }
+.tip-tooltip {
+  background-color: #28938d;
+  color: #fff;
+  margin-bottom: 1.125rem;
+  padding: 1.875rem;
+}
+.tip-tooltip h2 {
+  color: #bfd600;
+}
+.tip-tooltip p {
+
+}
 .subtitle {
   margin-left:70px;
 }
@@ -67,6 +79,14 @@ h2 {
 .toggle {
   background-color: #012169;
   color:#fff;
+  width: 100%;
+}
+.chart-emissions,
+.chart-energy {
+  flex-grow: 3;
+}
+.chart-data {
+  width: 20%;
 }
 .nav {
   background-color:#a8c700;
@@ -75,6 +95,7 @@ h2 {
 }
 .sources {
   margin-right: 20px;
+  color:#00797c;
 }
 
 .hidden {

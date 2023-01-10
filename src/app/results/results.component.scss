@@ -11,8 +11,8 @@
 .container .row {
   display:flex;
   flex-wrap: wrap;
-  justify-content : space-around;
-  align-content: space-around;
+  justify-content : space-between;
+  align-content: space-between;
 }
 .container .row.header {
   align-content: space-between;
@@ -20,10 +20,34 @@
     background-color: #DBE2E9;
     align-items: center;
 }
+.sidebar {
+    width: 20%;
+}
+.tip-tooltip {
+  background-color: #28938d;
+  color: #fff;
+  margin: 1.125rem 0;
+  padding: 1.875rem;
+
+}
+.tip-tooltip h2 {
+  color: #bfd600;
+}
+.tip-tooltip p {
+
+}
 .header {
   padding: 10px;
   border-bottom: 1px solid black;
 }
+.btn_link {
+  color:blue;
+  text-decoration:underline;
+}
+.home, h1 {
+  display: inline;
+}
+
 h1 {
   color: #00797c;
   font-weight: bold;
@@ -56,6 +80,7 @@ h1 {
 }
 .sources {
   margin-right: 20px;
+  color:#00797c;
 }
 .container .row.table_container {
   justify-content : flex-start;
