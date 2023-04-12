@@ -94,7 +94,7 @@ export class DataService {
     currentUrl, { observe: 'response' });
   }
 
-  updateCustomSource(key,value) {
+  updateCustomSource(key:any,value:any) {
     this.custom_source_structure[key].energy=value;
   }
 }

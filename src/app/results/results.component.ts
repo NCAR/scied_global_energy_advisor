@@ -223,13 +223,13 @@ export class ResultsComponent implements OnInit {
     **/
     drawVisualization() {
 
-      this.sources_formatter = new google.visualization.NumberFormat({
+      this.sources_formatter = new this.gLib.visualization.NumberFormat({
         pattern: '# PWh'
       });
 
       this.formatSources();
       // sources chart
-      this.sources_column_wrapper = new google.visualization.ChartWrapper({
+      this.sources_column_wrapper = new this.gLib.visualization.ChartWrapper({
         chartType: 'ColumnChart',
         dataTable: this.data_table_chart,
         options: this.options,
@@ -237,7 +237,7 @@ export class ResultsComponent implements OnInit {
       });
       this.sources_column_wrapper.draw();
 
-      this.sources_table_wrapper = new google.visualization.ChartWrapper({
+      this.sources_table_wrapper = new this.gLib.visualization.ChartWrapper({
         chartType: 'Table',
         dataTable: this.data_table,
         options: {showRowNumber: true, width: '100%', height: '100%'},

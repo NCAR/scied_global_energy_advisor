@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { GoogleChartModule } from './google-chart/google-chart.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleChartsModule } from 'angular-google-charts';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ResultsComponent } from './results/results.component';
 import { InteractiveComponent } from './interactive/interactive.component';

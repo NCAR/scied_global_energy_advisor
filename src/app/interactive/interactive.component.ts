@@ -276,17 +276,17 @@ export class InteractiveComponent implements OnInit {
   **/
   drawVisualization() {
 
-    this.sources_datatable = this.gLib.visualization.arrayToDataTable(
+    this.sources_datatable = new this.gLib.visualization.arrayToDataTable(
         [this.sources_columns, this.sources_data]);
 
-    this.sources_formatter = new google.visualization.NumberFormat({
+    this.sources_formatter = new this.gLib.visualization.NumberFormat({
       pattern: '# PWh'
     });
 
     this.formatSources();
 
     // sources chart
-    this.sources_wrapper = new google.visualization.ChartWrapper({
+    this.sources_wrapper = new this.gLib.visualization.ChartWrapper({
       chartType: 'ColumnChart',
       dataTable: this.sources_datatable,
       options: this.options_sources,
@@ -294,17 +294,17 @@ export class InteractiveComponent implements OnInit {
     });
     this.sources_wrapper.draw();
 
-    this.emissions_datatable = google.visualization.arrayToDataTable(
+    this.emissions_datatable = new this.gLib.visualization.arrayToDataTable(
         [this.emissions_columns, this.emissions_data]);
 
-    this.emissions_formatter = new google.visualization.NumberFormat({
+    this.emissions_formatter = new this.gLib.visualization.NumberFormat({
       pattern: '#.## Gt'
     });
 
     this.formatEmissions();
 
     // emissions chart
-    this.emissions_wrapper = new google.visualization.ChartWrapper({
+    this.emissions_wrapper = new this.gLib.visualization.ChartWrapper({
       chartType: 'ColumnChart',
       dataTable: this.emissions_datatable,
       options: this.options_emissions,
@@ -313,7 +313,7 @@ export class InteractiveComponent implements OnInit {
     this.emissions_wrapper.draw();
 
 
-    this.list_datatable = new google.visualization.DataTable();
+    this.list_datatable = new this.gLib.visualization.DataTable();
     this.list_datatable.addColumn('string','Sources');
     this.list_datatable.addColumn('number','PWh');
     this.list_datatable.addColumn('number','Gt');
@@ -364,7 +364,7 @@ export class InteractiveComponent implements OnInit {
       ]
     ]);
 
-    this.sources_wrapper_table = new google.visualization.ChartWrapper({
+    this.sources_wrapper_table = new this.gLib.visualization.ChartWrapper({
       chartType: 'Table',
       dataTable: this.list_datatable,
       options: {showRowNumber: false, width: '100%', height: '100%'},
@@ -487,14 +487,14 @@ export class InteractiveComponent implements OnInit {
     this.updateEmissionsData();
 
     // redraw sources
-    this.sources_datatable = google.visualization.arrayToDataTable(
+    this.sources_datatable = this.gLib.visualization.arrayToDataTable(
         [this.sources_columns, this.sources_data]);
     this.sources_wrapper.setDataTable(this.sources_datatable);
     this.formatSources();
     this.sources_wrapper.draw();
 
     // redraw emissions
-    this.emissions_datatable = google.visualization.arrayToDataTable(
+    this.emissions_datatable = this.gLib.visualization.arrayToDataTable(
         [this.emissions_columns, this.emissions_data]);
     this.emissions_wrapper.setDataTable(this.emissions_datatable);
     this.formatEmissions();
